@@ -15,87 +15,95 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
-  late List<Widget> _screens;
+  int _selectedIndex = 0;
+
+  // Define all screens
+  late final List<Widget> _screens;
 
   @override
   void initState() {
     super.initState();
     _screens = [
-      DashboardScreen(onNavigate: _onTabSelected),
-      WorkoutScreen(),
-      CalorieScreen(),
-      ProgressScreen(),
-      RoutineScreen(),
+      DashboardScreen(onNavigate: _navigateToTab),
+      const WorkoutScreen(),
+      const CalorieScreen(),
+      const ProgressScreen(),
+      const RoutineScreen(),
     ];
   }
 
-  void _onTabSelected(int index) {
-    setState(() => _currentIndex = index);
+  /// 🌐 Switch between screens
+  void _onItemTapped(int index) {
+    setState(() => _selectedIndex = index);
   }
 
-  final List<String> _titles = [
-    'Dashboard',
-    'Workout Log',
-    'Calorie Tracker',
-    'Progress',
-    'Routines',
-  ];
+  /// 🔁 Dashboard navigation helper (e.g., "Add Workout" button)
+  void _navigateToTab(int tabIndex) {
+    setState(() => _selectedIndex = tabIndex);
+  }
+
+  /// 💡 Nice transition effect between screens
+  Widget _buildAnimatedBody() {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 400),
+      transitionBuilder: (child, animation) {
+        return FadeTransition(opacity: animation, child: child);
+      },
+      child: _screens[_selectedIndex],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.tealAccent.withOpacity(0.2),
-        centerTitle: true,
-        title: Text(
-          _titles[_currentIndex],
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-            color: Colors.white,
-          ),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.dark_mode, color: Colors.white),
-            onPressed: widget.toggleTheme,
-          ),
-        ],
-      ),
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 400),
-        child: _screens[_currentIndex],
-      ),
+      body: _buildAnimatedBody(),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+          gradient: const LinearGradient(
+            colors: [Color(0xFF0f2027), Color(0xFF203a43), Color(0xFF2c5364)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
           boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
+            BoxShadow(
+              color: Colors.black.withOpacity(0.4),
+              blurRadius: 10,
+              offset: const Offset(0, -2),
+            ),
           ],
         ),
-        child: ClipRRect(
-          borderRadius:
-              const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-          child: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            selectedItemColor: Colors.tealAccent,
-            unselectedItemColor: Colors.grey.shade400,
-            backgroundColor: const Color(0xFF0f2027),
-            type: BottomNavigationBarType.fixed,
-            onTap: _onTabSelected,
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: 'Home'),
-              BottomNavigationBarItem(icon: Icon(Icons.fitness_center_rounded), label: 'Workout'),
-              BottomNavigationBarItem(icon: Icon(Icons.fastfood_rounded), label: 'Calories'),
-              BottomNavigationBarItem(icon: Icon(Icons.show_chart_rounded), label: 'Progress'),
-              BottomNavigationBarItem(icon: Icon(Icons.list_alt_rounded), label: 'Routines'),
-            ],
-          ),
+        child: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          selectedItemColor: Colors.tealAccent,
+          unselectedItemColor: Colors.white70,
+          selectedLabelStyle: GoogleFonts.poppins(fontWeight: FontWeight.w600),
+          unselectedLabelStyle: GoogleFonts.poppins(),
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.dashboard_rounded), label: "Dashboard"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.fitness_center_rounded), label: "Workout"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.local_fire_department_rounded),
+                label: "Calories"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.show_chart_rounded), label: "Progress"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.list_alt_rounded), label: "Routines"),
+          ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: widget.toggleTheme,
+        backgroundColor: Colors.tealAccent,
+        foregroundColor: Colors.black,
+        child: const Icon(Icons.brightness_6),
+        tooltip: "Toggle Theme",
       ),
     );
   }

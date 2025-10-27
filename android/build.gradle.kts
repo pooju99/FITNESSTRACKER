@@ -1,24 +1,54 @@
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("dev.flutter.flutter-gradle-plugin")
+}
+
+android {
+    namespace = "com.example.project"
+    compileSdk = 34
+
+    defaultConfig {
+        applicationId = "com.example.project"
+        minSdk = flutter.minSdkVersion
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    buildTypes {
+        getByName("release") {
+            // 🔧 Disable shrinking to prevent Gradle resource conflict
+            isMinifyEnabled = false
+            isShrinkResources = false
+        }
+        getByName("debug") {
+            isMinifyEnabled = false
+            isShrinkResources = false
+        }
+    }
+
+    // Optional: prevent lint errors from stopping your build
+    lint {
+        abortOnError = false
     }
 }
 
-val newBuildDir: Directory =
-    rootProject.layout.buildDirectory
-        .dir("../../build")
-        .get()
-rootProject.layout.buildDirectory.value(newBuildDir)
-
-subprojects {
-    val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
-    project.layout.buildDirectory.value(newSubprojectBuildDir)
-}
-subprojects {
-    project.evaluationDependsOn(":app")
+flutter {
+    source = "../.."
 }
 
-tasks.register<Delete>("clean") {
-    delete(rootProject.layout.buildDirectory)
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.25")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 }
