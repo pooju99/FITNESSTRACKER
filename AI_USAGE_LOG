@@ -1,0 +1,56 @@
+# 🤖 AI Usage Log – Fitness Tracker App
+
+**Student Name:** Pooja Settineni  
+**Panther ID:** 002904211  
+**Project Title:** Fitness Tracker App  
+**Course:** Mobile Application Development  
+**Date Range:** October 2025  
+
+---
+
+## 🧠 Overview
+This log records how AI tools (ChatGPT, GitHub Copilot, etc.) were used during the development of the **Fitness Tracker App**.  
+AI was used strictly for **learning, debugging, and design guidance**, not for generating the full codebase.  
+All final implementations were written, tested, and customized manually.
+
+---
+
+## 🗓️ AI Interaction Log
+
+| Date | AI Tool Used | Purpose | Key Outcome |
+|------|---------------|----------|--------------|
+| **Oct 18, 2025** | ChatGPT (GPT-5) | Faced build issues with Gradle and dependency mismatches in `pubspec.yaml` | Understood SDK compatibility and fixed desugaring setup for Android builds |
+| **Oct 19, 2025** | ChatGPT | Sought guidance on improving app UI/UX design for multiple screens | Learned to maintain consistent theming and responsive layouts using gradients and reusable widgets |
+| **Oct 20, 2025** | ChatGPT | Needed help integrating local data persistence | Learned how to use `SharedPreferences` for offline storage and serialize data using JSON |
+| **Oct 21, 2025** | ChatGPT | Debugged issues while tracking streaks, goal progress, and updating dashboard summaries | Gained insights into state management, widget refresh logic, and improving user engagement |
+| **Oct 22, 2025** | ChatGPT | Clarified best practices for documentation, testing, and presentation organization | Improved understanding of Flutter project structure, debugging workflow, and how to clearly explain functionality |
+
+---
+
+## 💡 How AI Was Used
+- **Learning Aid:** Used ChatGPT to understand Flutter widget lifecycles, state management, and data persistence.  
+- **Debugging Partner:** Helped interpret build and runtime errors, version mismatches, and Gradle configuration issues.  
+- **Design Advisor:** Suggested layout improvements, color palettes, and responsive UI strategies.  
+- **Documentation Support:** Provided examples of structured writing for reports, testing documentation, and presentation slides.  
+
+---
+
+## 🧩 Reflection
+> “AI tools acted as supportive learning assistants rather than replacements for original development work.  
+> They guided me through troubleshooting and refining app structure while improving my confidence in handling Flutter development independently.  
+> The process deepened my understanding of local storage, UI consistency, and cross-platform optimization.”
+
+---
+
+## ✅ Compliance Statement
+I confirm that:
+- AI tools were used **ethically and transparently**, only for learning and debugging purposes.  
+- The **entire final code, logic, and testing** were implemented manually.  
+- This log fulfills the **AI Transparency requirement** as per academic integrity guidelines.  
+
+---
+
+**Submitted by:**  
+👩‍💻 *Pooja Settineni (002904211)*  
+📅 *October 2025*  
+📘 *Mobile Application Development Project*
